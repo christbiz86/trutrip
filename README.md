@@ -1,0 +1,3 @@
+## Steps :
+
+- php artisan:migrate
