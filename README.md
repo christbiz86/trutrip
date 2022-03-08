@@ -1,3 +1,4 @@
 ## Steps :
 
-- php artisan:migrate
+- php artisan:migrate (for migrate database)
+- composer test (to run unit tests)
