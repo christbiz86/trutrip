@@ -35,11 +35,15 @@ class AuthController extends BaseController
 
         $input = $request->all();
         $input['password'] = bcrypt($input['password']);
-        $user = User::create($input);
-        $success['token'] =  $user->createToken('MyAuthApp')->plainTextToken;
-        $success['name'] =  $user->name;
-
-        return $this->sendResponse($success, 'User signup successfully.');
+        $check = User::where('email',$input['email'])->first();
+        if($check){
+            return $this->sendError('Signup failed!', ['error'=>'Email already exist!']);
+        } else {
+            $user = User::create($input);
+            $success['token'] =  $user->createToken('MyAuthApp')->plainTextToken;
+            $success['name'] =  $user->name;
+            return $this->sendResponse($success, 'User signup successfully.');
+        }
     }
 
     public function failedtoken(Request $request){
